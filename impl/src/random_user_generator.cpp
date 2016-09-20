@@ -23,6 +23,12 @@ std::string getRandomOf( const std::vector< std::string >& strings )
 }
 
 
+boost::gregorian::date generateRandomBirthDate()
+{
+     return generateRandomDate( boost::gregorian::date( 1900, 1, 1 ), boost::gregorian::date( 2000, 1, 1 ) );
+}
+
+
 std::vector< std::string > makeSyllables()
 {
      static const std::string vovels = "aeiouy";
@@ -112,7 +118,7 @@ User RandomMaleGenerator::generate() const
           middleName,
           aux::makeLogin( lastName, firstName, middleName ),
           aux::generatePassword(),
-          boost::gregorian::date(),
+          aux::generateRandomBirthDate(),
           User::Gender::Male
      );
 }

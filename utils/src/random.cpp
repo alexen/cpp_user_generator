@@ -9,7 +9,7 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
 
-boost::random::mt19937 generator;
+thread_local boost::random::mt19937 generator;
 
 int generateRandomInteger( int min, int max )
 {

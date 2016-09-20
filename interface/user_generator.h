@@ -50,5 +50,11 @@ class IUserGenerator {
 public:
      virtual ~IUserGenerator() {}
 
+     User operator()() const
+     {
+          return generate();
+     }
+
+private:
      virtual User generate() const = 0;
 };

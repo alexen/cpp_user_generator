@@ -10,6 +10,7 @@
 #include <interface/user_generator.h>
 #include <ostream>
 #include <boost/assert.hpp>
+#include <boost/date_time/gregorian/gregorian_io.hpp>
 
 
 inline std::ostream& operator<<( std::ostream& os, User::Gender gender )
@@ -32,7 +33,10 @@ inline std::ostream& operator<<( std::ostream& os, User::Gender gender )
 inline std::ostream& operator<<( std::ostream& os, const User& user )
 {
      os << user.lastName << " " << user.firstName << " " << user.middleName
-          << " [" << user.gender << "]"
+          << " ["
+          << user.gender
+          << ", " << user.birthDate
+          << "]"
           << " (" << user.login << ":" << user.password << ")";
      return os;
 }

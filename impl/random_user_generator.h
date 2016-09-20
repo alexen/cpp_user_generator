@@ -12,10 +12,9 @@
 
 
 class RandomMaleGenerator : public IUserGenerator {
-public:
+private:
      User generate() const override;
 
-private:
      static const std::vector< std::string > surnames_;
      static const std::vector< std::string > names_;
      static const std::vector< std::string > patronymics_;
@@ -23,12 +22,12 @@ private:
 
 
 class RandomFemaleGenerator : public IUserGenerator {
-public:
+private:
      User generate() const override;
 };
 
 
 class RandomUserGenerator : public IUserGenerator {
-public:
+private:
      User generate() const override;
 };
