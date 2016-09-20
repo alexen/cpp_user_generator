@@ -20,5 +20,5 @@ int generateRandomInteger( int min, int max )
 
 boost::gregorian::date generateRandomDate( const boost::gregorian::date& minDate, const boost::gregorian::date& maxDate )
 {
-     return boost::gregorian::date();
+     return minDate + boost::gregorian::days( generateRandomInteger( 0, (maxDate - minDate).days() ) );
 }

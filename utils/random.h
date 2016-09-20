@@ -9,6 +9,7 @@
 
 #include <boost/date_time/gregorian/gregorian_types.hpp>
 
+
 int generateRandomInteger( int min, int max );
 
 boost::gregorian::date generateRandomDate( const boost::gregorian::date& minDate, const boost::gregorian::date& maxDate );
