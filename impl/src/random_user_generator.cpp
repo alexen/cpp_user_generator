@@ -6,7 +6,12 @@
 ///
 
 #include <impl/random_user_generator.h>
+#include <boost/uuid/random_generator.hpp>
+#include <boost/uuid/uuid_io.hpp>
 #include <utils/random.h>
+
+
+#include <iostream>
 
 namespace {
 namespace aux {
@@ -18,9 +23,41 @@ std::string getRandomOf( const std::vector< std::string >& strings )
 }
 
 
+std::vector< std::string > makeSyllables()
+{
+     static const std::string vovels = "aeiouy";
+     static const std::string consonants = "bcdfghjklmnpqrstvwxz";
+
+     std::vector< std::string > syllables;
+
+     for( auto c: consonants )
+     {
+          for( auto v: vovels )
+          {
+               syllables.push_back( std::string( 1, c ) + std::string( 1, v ) );
+          }
+     }
+
+     return syllables;
+}
+
+
 std::string makeLogin( const std::string& lastName, const std::string& firstName, const std::string& middleName )
 {
-     return "";
+     static const auto syllables = makeSyllables();
+
+     std::string login;
+     login.reserve( 10 );
+
+     for( int i = 0; i < generateRandomInteger( 2, 4 ); ++i )
+     {
+          login += getRandomOf( syllables );
+     }
+
+     login += "_";
+     login += std::to_string( generateRandomInteger( 1000, 9999 ) );
+
+     return login;
 }
 
 
