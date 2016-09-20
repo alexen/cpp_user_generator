@@ -4,7 +4,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake")
 set(GTEST_ROOT "/home/alexen/devel/googletest/googletest")
 set(GTEST_BUILD "/home/alexen/build/gtest/googletest")
 find_package(GTest REQUIRED)
-find_package(Boost 1.58 REQUIRED COMPONENTS program_options thread system date_time)
+find_package(Boost 1.58 REQUIRED COMPONENTS program_options thread system date_time locale)
 find_package(Threads REQUIRED)
 
 set(NAME user_generator)

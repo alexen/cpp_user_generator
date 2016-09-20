@@ -10,4 +10,4 @@
 #include <string>
 
 
-std::string translit( const std::string& ruText );
+std::string transliterate( const std::string& ruText );

@@ -5,6 +5,10 @@ add_library(${NAME}
     src/random.cpp
 )
 
+target_link_libraries(${NAME}
+    ${Boost_LOCALE_LIBRARY}
+)
+
 set(UTESTNAME ut-${NAME})
 
 add_executable(${UTESTNAME}

@@ -9,8 +9,8 @@
 #include <boost/assert.hpp>
 
 
-std::string translit( const std::string& ruText )
+std::string transliterate( const std::string& ruText )
 {
-     BOOST_ASSERT_MSG( false, "function is not implemented yet" );
+     BOOST_ASSERT_MSG( false, "Not implemented yet" );
      return "";
 }
