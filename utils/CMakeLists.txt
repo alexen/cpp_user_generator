@@ -6,6 +6,8 @@ add_library(${NAME}
 )
 
 target_link_libraries(${NAME}
+    ${ICU_LIBRARIES}
+    ${ICU_I18N_LIBRARIES}
     ${Boost_LOCALE_LIBRARY}
 )
 
