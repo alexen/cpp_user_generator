@@ -29,7 +29,11 @@ int main( int argc, char **argv )
      try
      {
           namespace po = boost::program_options;
-          po::options_description descr;
+          po::options_description descr(
+               "This program generates user accounts containing full name (last, first and middle names), "
+               "birth date, gender, login and plaintext password. Generator supports multithreading "
+               "generation, so you can choose number of generating threads."
+               );
 
           int nPersons = 500;
           int nThreads = 1;
