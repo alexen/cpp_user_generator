@@ -6,7 +6,6 @@
 ///
 
 #include <gtest/gtest.h>
-#include <iostream>
 #include <utils/random.h>
 
 TEST( Random, GenerateIntegerInRange )
