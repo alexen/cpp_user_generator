@@ -23,3 +23,5 @@ target_link_libraries(${UTESTNAME}
     ${GTEST_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
 )
+
+add_test(${NAME} ${UTESTNAME})

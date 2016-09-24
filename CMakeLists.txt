@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake")
+
 set(GTEST_ROOT "/home/alexen/devel/googletest/googletest")
 set(GTEST_BUILD "/home/alexen/build/googletest")
 find_package(GTest REQUIRED)
@@ -23,3 +24,5 @@ target_link_libraries(${NAME}
     ${Boost_THREAD_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
 )
+
+enable_testing()
