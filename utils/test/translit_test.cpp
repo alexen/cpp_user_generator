@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 #include <utils/translit.h>
 
-TEST( Translit, RuToEn )
+TEST( DISABLED_Translit, RuToEn )
 {
      const std::string kdePanagram =
           "Широкая электрификация южных губерний даст мощный толчок подъёму сельского хозяйства";
