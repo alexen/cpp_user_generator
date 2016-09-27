@@ -6,6 +6,7 @@
 ///
 
 #include <utils/translit.h>
+#include <boost/throw_exception.hpp>
 #include <unicode/translit.h>
 #include <unicode/unistr.h>
 
@@ -23,14 +24,14 @@ UnicodeString unaccentRules(
 );
 
 
-}  // namespace inner
+} // namespace inner
 } // namespace
 
 
 std::string transliterate( const std::string& ruText )
 {
      UErrorCode ec = U_ZERO_ERROR;
-     UParseError pError;
+     UParseError parseError;
 
      std::unique_ptr< Transliterator > transliterator(
           Transliterator::createInstance( "Russian-Latin/BGN", UTRANS_FORWARD, ec ) );
@@ -40,10 +41,16 @@ std::string transliterate( const std::string& ruText )
                "RBTUnaccent",
                inner::unaccentRules,
                UTRANS_FORWARD,
-               pError,
+               parseError,
                ec ) );
 
-     UnicodeString ustr = ruText.c_str();
+     if( U_FAILURE( ec ) )
+     {
+          BOOST_THROW_EXCEPTION( std::runtime_error(
+               "transliteration error: " + std::string( u_errorName( ec ) ) ) );
+     }
+
+     UnicodeString ustr( ruText.c_str() );
      transliterator->transliterate( ustr );
      unaccent->transliterate( ustr );
 
