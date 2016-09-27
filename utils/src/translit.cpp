@@ -9,23 +9,46 @@
 #include <unicode/translit.h>
 #include <unicode/unistr.h>
 
-#include <iostream>
+#include <memory>
+
+
+namespace {
+namespace inner {
+
+
+UnicodeString unaccentRules(
+     "\\u02BA > ;"
+     "\\u02B9 > ;"
+     "\\u00EB > e;"
+);
+
+
+}  // namespace inner
+} // namespace
+
 
 std::string transliterate( const std::string& ruText )
 {
      UErrorCode ec = U_ZERO_ERROR;
-     StringEnumeration* enumerator = Transliterator::getAvailableIDs( ec );
-     while( const char* id = enumerator->next( nullptr, ec ) )
-     {
-          std::cout << "Transliterate with ID " << id << ":\n";
-          Transliterator* transliterator = Transliterator::createInstance( id, UTRANS_FORWARD, ec );
-          UnicodeString ustr = ruText.c_str();
-          transliterator->transliterate( ustr );
+     UParseError pError;
 
-          std::string result;
-          ustr.toUTF8String( result );
-          std::cout << result << "\n";
-     }
-     delete enumerator;
-     return "";
+     std::unique_ptr< Transliterator > transliterator(
+          Transliterator::createInstance( "Russian-Latin/BGN", UTRANS_FORWARD, ec ) );
+
+     std::unique_ptr< Transliterator > unaccent(
+          Transliterator::createFromRules(
+               "RBTUnaccent",
+               inner::unaccentRules,
+               UTRANS_FORWARD,
+               pError,
+               ec ) );
+
+     UnicodeString ustr = ruText.c_str();
+     transliterator->transliterate( ustr );
+     unaccent->transliterate( ustr );
+
+     std::string result;
+     ustr.toUTF8String( result );
+
+     return result;
 }
