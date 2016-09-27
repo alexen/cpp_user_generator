@@ -17,62 +17,62 @@ TEST( Random, GenerateIntegerInRange )
      bool equalToMaxLimit = false;
      bool inRange = false;
 
-     for( auto i = 0; i < 500000; ++i )
+     for( auto i = 0; i < 100000; ++i )
      {
           const auto genInt = generateRandomInteger( minLimit, maxLimit );
 
           ASSERT_TRUE( minLimit <= genInt && genInt <= maxLimit );
 
-          if( !equalToMinLimit && genInt == minLimit )
+          if( !equalToMinLimit )
           {
-               equalToMinLimit = true;
+               equalToMinLimit = (genInt == minLimit);
           }
-          else if( !equalToMaxLimit && genInt == maxLimit )
+          if( !equalToMaxLimit )
           {
-               equalToMaxLimit = true;
+               equalToMaxLimit = (genInt == maxLimit);
           }
-          else if( !inRange && (minLimit < genInt && genInt < maxLimit) )
+          if( !inRange )
           {
-               inRange = true;
+               inRange = (minLimit < genInt && genInt < maxLimit);
           }
      }
 
-     ASSERT_TRUE( equalToMinLimit );
-     ASSERT_TRUE( equalToMaxLimit );
+     EXPECT_TRUE( equalToMinLimit );
+     EXPECT_TRUE( equalToMaxLimit );
      ASSERT_TRUE( inRange );
 }
 
 
 TEST( Random, GenerateDatesInRange )
 {
-     const boost::gregorian::date minDate( 1912, 3, 24 );
-     const boost::gregorian::date maxDate( 2037, 11, 8 );
+     const boost::gregorian::date minDate( 1937, 3, 24 );
+     const boost::gregorian::date maxDate( 1943, 11, 8 );
 
      bool minDateGenerated = false;
      bool maxDateGenerated = false;
      bool dateInRangeGenerated = false;
 
-     for( auto i = 0; i < 500000; ++i )
+     for( auto i = 0; i < 100000; ++i )
      {
           const auto genDate = generateRandomDate( minDate, maxDate );
 
           ASSERT_TRUE( minDate <= genDate && genDate <= maxDate );
 
-          if( !minDateGenerated && genDate == minDate )
+          if( !minDateGenerated )
           {
-               minDateGenerated = true;
+               minDateGenerated = (genDate == minDate);
           }
-          else if( !maxDateGenerated && genDate == maxDate )
+          if( !maxDateGenerated )
           {
-               maxDateGenerated = true;
+               maxDateGenerated = (genDate == maxDate);
           }
-          else if( !dateInRangeGenerated && (minDate < genDate && genDate < maxDate) )
+          if( !dateInRangeGenerated )
           {
-               dateInRangeGenerated = true;
+               dateInRangeGenerated = (minDate < genDate && genDate < maxDate);
           }
      }
 
-     ASSERT_TRUE( minDateGenerated );
-     ASSERT_TRUE( maxDateGenerated );
+     EXPECT_TRUE( minDateGenerated );
+     EXPECT_TRUE( maxDateGenerated );
      ASSERT_TRUE( dateInRangeGenerated );
 }
