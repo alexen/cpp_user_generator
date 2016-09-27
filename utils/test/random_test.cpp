@@ -17,7 +17,7 @@ TEST( Random, GenerateIntegerInRange )
      bool equalToMaxLimit = false;
      bool inRange = false;
 
-     for( auto i = 0; i < 100000; ++i )
+     for( auto i = 0; i < 500000; ++i )
      {
           const auto genInt = generateRandomInteger( minLimit, maxLimit );
 
@@ -52,7 +52,7 @@ TEST( Random, GenerateDatesInRange )
      bool maxDateGenerated = false;
      bool dateInRangeGenerated = false;
 
-     for( auto i = 0; i < 100000; ++i )
+     for( auto i = 0; i < 500000; ++i )
      {
           const auto genDate = generateRandomDate( minDate, maxDate );
 
