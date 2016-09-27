@@ -6,7 +6,7 @@ find_package(Boost 1.58 REQUIRED COMPONENTS program_options thread system date_t
 set(NAME user_generator)
 
 add_definitions(-std=c++11)
-add_definitions(-Wall -Werror -Wpedantic)
+add_definitions(-Wall -Werror -Wextra -pedantic -pedantic-errors)
 
 include_directories(${CMAKE_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/googletest/googletest/include")
 

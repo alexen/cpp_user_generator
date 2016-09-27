@@ -48,7 +48,7 @@ std::vector< std::string > makeSyllables()
 }
 
 
-std::string makeLogin( const std::string& lastName, const std::string& firstName, const std::string& middleName )
+std::string makeLogin( const std::string& /*lastName*/, const std::string& /*firstName*/, const std::string& /*middleName*/ )
 {
      static const auto syllables = makeSyllables();
 

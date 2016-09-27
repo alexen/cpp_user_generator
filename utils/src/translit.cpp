@@ -8,7 +8,7 @@
 #include <utils/translit.h>
 
 
-std::string transliterate( const std::string& ruText )
+std::string transliterate( const std::string& /* ruText */ )
 {
      return "";
 }
