@@ -20,8 +20,9 @@ add_executable(${UTESTNAME}
 
 target_link_libraries(${UTESTNAME}
     ${NAME}
-    ${GTEST_LIBRARIES}
+    gtest
+    gtest_main
     ${CMAKE_THREAD_LIBS_INIT}
 )
-
+enable_testing()
 add_test(${NAME} ${UTESTNAME})
