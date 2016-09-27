@@ -33,8 +33,10 @@ TEST( Translit, RuToEn )
           }
      };
 
+     std::string result;
      for( auto&& eachPair: stringPairs )
      {
-          ASSERT_EQ( eachPair.second, transliterate( eachPair.first ) );
+          ASSERT_NO_THROW( result = transliterate( eachPair.first ) );
+          ASSERT_EQ( eachPair.second, result );
      }
 }
