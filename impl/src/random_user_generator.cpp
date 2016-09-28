@@ -44,12 +44,12 @@ std::string makeLogin( const std::string& lastName, const std::string& firstName
 
 std::string generatePassword( int minLen = 10, int maxLen = 20 )
 {
-     /*static */const std::string allowedChars =
+     static const std::string allowedChars =
           "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
 
      std::string password( generateRandomInteger( minLen, maxLen ), '\0' );
      std::generate( password.begin(), password.end(),
-          [ &allowedChars ]()
+          []()
           {
                return allowedChars.at( generateRandomInteger( 0, allowedChars.size() - 1 ) );
           } );
