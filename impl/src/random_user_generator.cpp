@@ -8,10 +8,10 @@
 #include <impl/random_user_generator.h>
 #include <boost/uuid/random_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <boost/algorithm/string/case_conv.hpp>
 #include <utils/random.h>
+#include <utils/translit.h>
 
-
-#include <iostream>
 
 namespace {
 namespace aux {
@@ -29,52 +29,27 @@ boost::gregorian::date generateRandomBirthDate()
 }
 
 
-std::vector< std::string > makeSyllables()
+std::string makeLogin( const std::string& lastName, const std::string& firstName, const std::string& middleName )
 {
-     static const std::string vovels = "aeiouy";
-     static const std::string consonants = "bcdfghjklmnpqrstvwxz";
-
-     std::vector< std::string > syllables;
-
-     for( auto c: consonants )
-     {
-          for( auto v: vovels )
-          {
-               syllables.push_back( std::string( 1, c ) + std::string( 1, v ) );
-          }
-     }
-
-     return syllables;
-}
-
-
-std::string makeLogin( const std::string& /*lastName*/, const std::string& /*firstName*/, const std::string& /*middleName*/ )
-{
-     static const auto syllables = makeSyllables();
-
-     std::string login;
-     login.reserve( 10 );
-
-     for( int i = 0; i < generateRandomInteger( 2, 4 ); ++i )
-     {
-          login += getRandomOf( syllables );
-     }
-
+     std::string login = transliterate( lastName );
+     login += "_";
+     login += transliterate( firstName )[ 0 ];
+     login += transliterate( middleName )[ 0 ];
      login += "_";
      login += std::to_string( generateRandomInteger( 1000, 9999 ) );
-
+     boost::algorithm::to_lower( login );
      return login;
 }
 
 
 std::string generatePassword( int minLen = 10, int maxLen = 20 )
 {
-     static const std::string allowedChars =
+     /*static */const std::string allowedChars =
           "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
 
      std::string password( generateRandomInteger( minLen, maxLen ), '\0' );
      std::generate( password.begin(), password.end(),
-          []()
+          [ &allowedChars ]()
           {
                return allowedChars.at( generateRandomInteger( 0, allowedChars.size() - 1 ) );
           } );
