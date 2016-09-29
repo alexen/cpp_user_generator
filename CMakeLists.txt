@@ -13,6 +13,8 @@ add_definitions(-Wall -Werror -Wextra -pedantic -pedantic-errors)
 
 include_directories(${CMAKE_SOURCE_DIR} ${ICU_INCLUDE_DIRS} "${CMAKE_SOURCE_DIR}/googletest/googletest/include")
 
+enable_testing()
+
 add_subdirectory(googletest)
 add_subdirectory(impl)
 add_subdirectory(utils)
@@ -26,4 +28,3 @@ target_link_libraries(${NAME}
      ${Boost_THREAD_LIBRARY}
      ${Boost_SYSTEM_LIBRARY}
 )
-enable_testing()
