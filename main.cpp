@@ -14,11 +14,11 @@
 #include <interface/user_generator_io.h>
 
 
-void personGenerator( IUserGenerator& generator, std::atomic< int >& personsLeft )
+void personGenerator( const IUserGenerator& generator, std::atomic< int >& personsLeft )
 {
      while( personsLeft > 0 )
      {
-          generator();
+          std::cout << generator() << "\n";
           --personsLeft;
      }
 }
@@ -43,7 +43,9 @@ int main( int argc, char **argv )
                ( "persons-number,n", po::value< int >( &nPersons )->default_value( nPersons ),
                     "Number of persons to generate" )
                ( "workers,w", po::value< int >( &nThreads )->default_value( nThreads ),
-                    "Number of worker threads" );
+                    "Number of worker threads" )
+               ( "males-only,m", "Generate males only" )
+               ( "females-only,f", "Generate females only" );
 
           po::variables_map vm;
           po::store( po::parse_command_line( argc, argv, descr ), vm );
@@ -55,14 +57,30 @@ int main( int argc, char **argv )
                return 0;
           }
 
+          const bool malesOnly = vm.count( "males-only" );
+          const bool femalesOnly = vm.count( "females-only" );
+
           std::atomic< int > personsLeft( nPersons );
 
-          RandomMaleGenerator generator;
+          std::unique_ptr< IUserGenerator > generator;
+
+          if( malesOnly && !femalesOnly )
+          {
+               generator.reset( new RandomMaleGenerator() );
+          }
+          else if( !malesOnly && femalesOnly )
+          {
+               generator.reset( new RandomFemaleGenerator() );
+          }
+          else
+          {
+               generator.reset( new RandomUserGenerator() );
+          }
 
           boost::thread_group tg;
           for( auto i = 0; i < nThreads; ++i )
           {
-               tg.create_thread( boost::bind( personGenerator, boost::ref( generator ), boost::ref( personsLeft ) ) );
+               tg.create_thread( boost::bind( personGenerator, boost::cref( *generator ), boost::ref( personsLeft ) ) );
           }
           tg.join_all();
 
