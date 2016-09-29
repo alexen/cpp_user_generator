@@ -23,9 +23,8 @@ long nanoseconds()
      if( clock_gettime( CLOCK_REALTIME, &tv ) < 0 )
      {
           char errstr[ 128 ] = { 0 };
-          strerror_r( errno, errstr, sizeof( errstr ) );
           BOOST_THROW_EXCEPTION( std::runtime_error( "clock_gettime failed: "
-               + std::string( errstr ) ) );
+               + std::string( strerror_r( errno, errstr, sizeof( errstr ) ) ) ) );
      }
      return tv.tv_nsec;
 }
