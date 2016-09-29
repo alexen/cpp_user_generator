@@ -24,6 +24,10 @@ private:
 class RandomFemaleGenerator : public IUserGenerator {
 private:
      User generate() const override;
+
+     static const std::vector< std::string > surnames_;
+     static const std::vector< std::string > names_;
+     static const std::vector< std::string > patronymics_;
 };
 
 
