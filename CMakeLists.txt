@@ -5,6 +5,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake")
 find_package(Threads REQUIRED)
 find_package(ICU REQUIRED)
 find_package(Boost 1.58 REQUIRED COMPONENTS program_options thread system date_time)
+find_package(SQLite3 REQUIRED)
 
 set(NAME user_generator)
 
